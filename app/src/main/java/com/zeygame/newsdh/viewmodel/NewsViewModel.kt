@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.zeygame.newsdh.model.Data
-import com.zeygame.newsdh.model.FavoritModel
+import com.zeygame.newsdh.model.News
 import com.zeygame.newsdh.model.ResultModel
 import com.zeygame.newsdh.repository.NewsRepository
 import com.zeygame.newsdh.util.Constants
@@ -37,8 +37,5 @@ class NewsViewModel @Inject constructor(private val repository : NewsRepository)
             }
         }
     }
-    fun addToFavorites(data:Data){
-        val fm=FavoritModel(data.Id,data.Image.Value,data.ShortContent,data.SourceUrl,data.Title)
-        fm
-    }
+
 }

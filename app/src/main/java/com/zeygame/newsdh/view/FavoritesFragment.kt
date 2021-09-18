@@ -5,23 +5,23 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import com.zeygame.newsdh.R
+import com.zeygame.newsdh.adapters.NewsAdapter
 import com.zeygame.newsdh.databinding.FragmentFavoritesBinding
-import com.zeygame.newsdh.model.User
-import com.zeygame.newsdh.repository.FavoritesRepository
+import com.zeygame.newsdh.model.News
+import com.zeygame.newsdh.util.Constants
 import com.zeygame.newsdh.viewmodel.FavoriteViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
+class FavoritesFragment  : Fragment(R.layout.fragment_favorites)  {
     private var _binding : FragmentFavoritesBinding?=null
     private val binding get() = _binding!!
 
     val viewModel: FavoriteViewModel by viewModels()
+    lateinit var adapterFavorites: NewsAdapter
+     val mutableList : MutableList<News> = ArrayList()
 
 
     override fun onCreateView(
@@ -36,12 +36,26 @@ class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        viewModel.favoritesResponse.observe(viewLifecycleOwner,{
-            binding.txFav.text = it[0].Title
-        })
-
+        initRecycler()
 
     }
+
+    private fun initRecycler() {
+        adapterFavorites = NewsAdapter(this.requireContext(),mutableList)
+        binding.recylerFavorites.apply {
+            setHasFixedSize(true)
+            this.adapter=adapterFavorites
+        }
+        getFavorites()
+    }
+
+    private fun getFavorites() {
+        viewModel.favoritesResponse.observe(viewLifecycleOwner,{
+            mutableList.clear()
+            mutableList.addAll(it)
+            adapterFavorites.notifyDataSetChanged()
+        })
+    }
+
 
 }

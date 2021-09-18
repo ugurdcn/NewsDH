@@ -32,8 +32,7 @@ class ViewPagerFragment : Fragment(R.layout.fragment_view_pager) {
     }
 
     private fun setupAdapter() {
-
-        pagerAdapter = MyViewPagerAdapter(parentFragmentManager, lifecycle)
+        pagerAdapter = MyViewPagerAdapter(childFragmentManager, lifecycle)
         binding.viewPager.adapter = pagerAdapter
 
         TabLayoutMediator(binding.tabLayout,binding.viewPager){

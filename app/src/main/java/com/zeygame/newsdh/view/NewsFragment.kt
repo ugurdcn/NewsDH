@@ -1,29 +1,33 @@
 package com.zeygame.newsdh.view
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import androidx.recyclerview.widget.RecyclerView
 import com.zeygame.newsdh.R
 import com.zeygame.newsdh.adapters.NewsAdapter
 import com.zeygame.newsdh.databinding.FragmentNewsBinding
-import com.zeygame.newsdh.model.Data
+import com.zeygame.newsdh.model.News
+import com.zeygame.newsdh.repository.FavoritesRepository
+import com.zeygame.newsdh.util.DeleteListener
 import com.zeygame.newsdh.util.Constants
 import com.zeygame.newsdh.viewmodel.NewsViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlin.collections.ArrayList
 
 @AndroidEntryPoint
-class NewsFragment : Fragment(R.layout.fragment_news) {
+class NewsFragment : Fragment(R.layout.fragment_news)  {
     private  var _binding : FragmentNewsBinding?=null
     val binding get() = _binding!!
 
+
     private val viewModel : NewsViewModel by viewModels()
     private lateinit var adapterNews: NewsAdapter
-    val mDataList:MutableList<Data> = ArrayList()
+    val mDataList:MutableList<News> = ArrayList()
+
+    private val favoritesRepository=FavoritesRepository()
 
     var pageIndex =0
 
@@ -41,20 +45,20 @@ class NewsFragment : Fragment(R.layout.fragment_news) {
         initRecycler()
     }
 
-    /*
-         ProgressBar görünürlüğü için  ayarlamalar yapılıyor
-    */
-
-
+        /*
+           Recycler görünürlüğü için  ayarlamalar yapılıyor
+        */
     private fun initRecycler(){
-        adapterNews= NewsAdapter(mDataList)
+        adapterNews= NewsAdapter(this.requireContext(),mDataList)
         binding.recyclerView.apply {
             setHasFixedSize(true)
             adapter=adapterNews
         }
         getNews()
     }
-
+        /*
+         ProgressBar görünürlüğü için  ayarlamalar yapılıyor
+        */
     private fun setProgresBar() {
         Constants.showProgress.observe(viewLifecycleOwner,{
             if (it) {
@@ -68,15 +72,33 @@ class NewsFragment : Fragment(R.layout.fragment_news) {
         })
     }
 
+
+
     private fun getNews(){
         setProgresBar()
         viewModel.newsResponse.observe(viewLifecycleOwner,{
             it?.let {
-                for (item in it.Data){
-                    adapterNews.addNews(item)
+                for (dataItem in it.Data){
+                    adapterNews.addNews(dataItem.converToNews(favoritesRepository.isExist(dataItem.Id)))
                 }
             }
         })
+    }
 
+
+    init {
+        Constants.deleteListener = object : DeleteListener {
+            override fun onDelete(news: News) {
+                var i:Int=0
+                for (data in mDataList) {
+                    if (data.Id==news.Id){
+                        data.IsFavorite=false
+                        break
+                    }
+                    i++
+                }
+                adapterNews.notifyItemChanged(i)
+            }
+        }
     }
 }

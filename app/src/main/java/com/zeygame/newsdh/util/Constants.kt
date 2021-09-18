@@ -7,5 +7,5 @@ object Constants {
     const val END_POINT = "dev/and/api/newest?"
 
     val showProgress= MutableLiveData(false)
-    val web_url = MutableLiveData("")
+    var deleteListener : DeleteListener? = null
 }

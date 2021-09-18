@@ -22,7 +22,4 @@ object NewsModule {
                     .addConverterFactory(GsonConverterFactory.create())
                     .build()
                     .create(ApiService::class.java)
-
-//    val gson =  GsonBuilder().setLenient().create() // gson create içine gömülmesi gerekebilir
-
 }

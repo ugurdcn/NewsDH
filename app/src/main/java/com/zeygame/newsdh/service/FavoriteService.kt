@@ -1,21 +1,17 @@
 package com.zeygame.newsdh.service
 
-import com.zeygame.newsdh.model.FavoritModel
+import com.zeygame.newsdh.model.News
+import dagger.hilt.EntryPoint
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 import io.realm.RealmResults
 
 interface FavoriteService {
-    fun save(favorite:FavoritModel)
+    fun save(favorite:News)
 
-    fun getAll(): RealmResults<FavoritModel>?
+    fun getAll(): RealmResults<News>?
 
-//    fun save(favorite: FavoritModel)=realm.executeTransactionAsync{it.insertOrUpdate(favorite)}
-//    fun delete(Id: String) = run {
-//        realm.executeTransaction {
-//            val favModel: RealmQuery<FavoritModel>? =realm
-//                .where(FavoritModel::class.java).equalTo("Id",Id)
-//            favModel?.let {
-//                favModel.realm.deleteAll()
-//            }
-//        }
-//    }
+    fun delete(favorite: Int)
+
+    fun isExist(Id: Int):Boolean
 }
