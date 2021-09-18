@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/viewPagerFragment">
+    <fragment
+        android:id="@+id/viewPagerFragment"
+        android:name="com.zeygame.newsdh.view.ViewPagerFragment"
+        android:label="fragment_view_pager"
+        tools:layout="@layout/fragment_view_pager" >
+        <action
+            android:id="@+id/action_viewPagerFragment_to_webViewFragment"
+            app:destination="@id/webViewFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/newsFragment"
+        android:name="com.zeygame.newsdh.view.NewsFragment"
+        android:label="fragment_news"
+        tools:layout="@layout/fragment_news" />
+    <fragment
+        android:id="@+id/favoritesFragment"
+        android:name="com.zeygame.newsdh.view.FavoritesFragment"
+        android:label="fragment_favorites"
+        tools:layout="@layout/fragment_favorites" />
+    <fragment
+        android:id="@+id/webViewFragment"
+        android:name="com.zeygame.newsdh.view.WebViewFragment"
+        android:label="fragment_web_view"
+        tools:layout="@layout/fragment_web_view" >
+        <argument
+            android:name="web_url"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_webViewFragment_to_viewPagerFragment2"
+            app:destination="@id/viewPagerFragment" />
+    </fragment>
+
+</navigation>

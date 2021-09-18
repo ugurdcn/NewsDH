@@ -1,33 +1,23 @@
 package com.zeygame.newsdh.viewmodel
 
-import androidx.lifecycle.LiveData
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.zeygame.newsdh.model.User
-import io.realm.Realm
+import com.zeygame.newsdh.model.FavoritModel
+import com.zeygame.newsdh.repository.FavoritesRepository
 
-class FavoriteViewModel : ViewModel() {
+class FavoriteViewModel   : ViewModel() {
 
-    private val _user = MutableLiveData<User?>()
-    val user: LiveData<User?> = _user
+    private val _response = MutableLiveData<List<FavoritModel>>()
+    val favoritesResponse get() = _response
+    val favoritesRepository=FavoritesRepository()
 
     init {
-//        onAddString("Deneme Username")
-
-        val realm = Realm.getDefaultInstance()
-        val user = realm.where(User::class.java).findFirst()
-        _user.postValue(user)
+        _response.postValue(favoritesRepository.getAll())
     }
 
+    fun deleteFromFavorite(favorite:FavoritModel){
 
-    fun onAddString(str:String){
-        val realm = Realm.getDefaultInstance()
-        val denemeUser = User().apply {
-            this.name=str
-        }
-        realm.executeTransactionAsync {
-            it.insertOrUpdate(denemeUser)
-            _user.postValue(denemeUser)
-        }
+
     }
 }

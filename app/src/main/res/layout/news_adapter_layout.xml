@@ -3,31 +3,55 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="150dp"
         app:cardCornerRadius="5dp"
         app:cardElevation="5dp"
-        >
+        android:layout_margin="10dp">
         <LinearLayout
             android:gravity="center"
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             >
 
             <ImageView
+                android:id="@+id/imgRow"
                 android:src="@android:drawable/ic_menu_report_image"
                 android:layout_weight="1"
                 android:layout_width="0dp"
-                android:layout_height="200dp"/>
-            <TextView
-                android:id="@+id/txTitleRow"
-                android:textColor="@color/black"
-                android:fontFamily="sans-serif-condensed"
-                android:text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,"
-                android:layout_weight="1"
+                android:layout_height="match_parent"/>
+            <LinearLayout
+                android:orientation="vertical"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                />
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                >
+                <TextView
+                    android:padding="2dp"
+                    android:gravity="center"
+                    android:layout_margin="5dp"
+                    android:id="@+id/txTitleRow"
+                    android:textColor="@color/black"
+                    android:fontFamily="sans-serif-condensed"
+                    android:text="Lorem Ipsum is
+                 simply dummy text of the
+                  printing and typesetting industry.
+                   Lorem Ipsum has been the industry standard dummy text ever since the 1500s,"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    />
+                <ImageView
+                    android:id="@+id/imgTurned"
+                    android:layout_margin="5dp"
+                    android:layout_gravity="end"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/ic_turned_in_not"
+                    />
+
+            </LinearLayout>
+
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
