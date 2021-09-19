@@ -12,6 +12,7 @@ import com.zeygame.newsdh.repository.NewsRepository
 import com.zeygame.newsdh.util.Constants
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import java.net.ConnectException
 import javax.inject.Inject
 
 @HiltViewModel
@@ -23,18 +24,25 @@ class NewsViewModel @Inject constructor(private val repository : NewsRepository)
 
     init {
         getNews(0,15)
+
     }
 
-    fun getNews(pageIndex:Int,pageSize:Int) = viewModelScope.launch {
-        repository.getNews(pageIndex,pageSize).let {
-            Constants.showProgress.postValue(false)
-            if (it.isSuccessful) {
-                it.body()?.let {
-                    _response.postValue(it)
+    fun getNews(pageIndex:Int,pageSize:Int) = viewModelScope.launch  {
+        try {
+            repository.getNews(pageIndex,pageSize).let {
+                Constants.showProgress.postValue(false)
+                it?.let {
+                    if (it?.isSuccessful) {
+                        it.body()?.let {
+                            _response.postValue(it)
+                        }
+                    } else {
+                        Log.d("MYTAG", "HATA OLUŞTU ${it.code()}")
+                    }
                 }
-            } else {
-                Log.d("MYTAG", "HATA OLUŞTU ${it.code()}")
             }
+        }catch (e:ConnectException) {
+            e.printStackTrace()
         }
     }
 
