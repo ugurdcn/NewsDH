@@ -8,19 +8,23 @@
     tools:context=".view.ViewPagerFragment">
 
     <com.google.android.material.tabs.TabLayout
+        android:background="@drawable/tab_shape"
         android:id="@+id/tabLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:tabInlineLabel="true">
 
         <com.google.android.material.tabs.TabItem
+            android:icon="@drawable/ic_library_books"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="NEWS" />
 
         <com.google.android.material.tabs.TabItem
+            android:icon="@drawable/ic_turned_in"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="FAVORITES" />
@@ -33,8 +37,8 @@
         android:layout_height="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tabLayout"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/tabLayout"
+        app:layout_constraintTop_toTopOf="parent"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

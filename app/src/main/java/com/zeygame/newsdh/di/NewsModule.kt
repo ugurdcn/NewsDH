@@ -1,6 +1,5 @@
 package com.zeygame.newsdh.di
 
-import com.google.gson.GsonBuilder
 import com.zeygame.newsdh.service.ApiService
 import com.zeygame.newsdh.util.Constants
 import dagger.Module

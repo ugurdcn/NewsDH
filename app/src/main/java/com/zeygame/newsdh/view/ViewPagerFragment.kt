@@ -38,8 +38,14 @@ class ViewPagerFragment : Fragment(R.layout.fragment_view_pager) {
         TabLayoutMediator(binding.tabLayout,binding.viewPager){
                 tab,pos->
             when(pos){
-                0->{tab.text="NEWS"}
-                1->{tab.text="FAVORITES"}
+                0->{
+                    tab.text="NEWS"
+                    tab.setIcon(R.drawable.ic_library_books)
+                }
+                1->{
+                    tab.text="FAVORITES"
+                    tab.setIcon(R.drawable.ic_turned_in)
+                }
             }
         }.attach()
     }

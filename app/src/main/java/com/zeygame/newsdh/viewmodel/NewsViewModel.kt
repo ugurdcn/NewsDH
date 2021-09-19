@@ -32,7 +32,7 @@ class NewsViewModel @Inject constructor(private val repository : NewsRepository)
             repository.getNews(pageIndex,pageSize).let {
                 Constants.showProgress.postValue(false)
                 it?.let {
-                    if (it?.isSuccessful) {
+                    if (it.isSuccessful) {
                         it.body()?.let {
                             _response.postValue(it)
                         }

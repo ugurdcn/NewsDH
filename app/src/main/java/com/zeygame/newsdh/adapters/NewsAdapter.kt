@@ -17,7 +17,7 @@ import com.zeygame.newsdh.view.ViewPagerFragmentDirections
 class NewsAdapter (val context: Context,
                    val list:MutableList<News>) : RecyclerView.Adapter<NewsAdapter.MyViewHolder>() {
 
-    val favoritesRepository=FavoritesRepository()
+    private val favoritesRepository=FavoritesRepository()
 
     inner class MyViewHolder(val binding: NewsAdapterLayoutBinding) :RecyclerView.ViewHolder(binding.root)
 
